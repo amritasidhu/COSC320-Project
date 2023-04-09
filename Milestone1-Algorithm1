@@ -1,0 +1,29 @@
+# imports for when the data is eventually plotted
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+
+# acron is the list of acroynms that we shall replace if found within the document
+# the document will be a set of words, where, there may be acroyns which have to be replaced
+# must create functions that can parse out info from legitimate text sources necessary to populate these dummy arrays with more meaningful content
+
+document = []
+acron = [["FBI", "federal bureau of investigation"], ["TV", "television"], ["RC", "radio controlled"], ["CIA","central intelligence agency"]]
+
+# this populates the document with all of the words in the file called words.txt in your computer, place whichever paragraphs you wish to have in there
+with open('words.txt','r') as f:
+    for line in f:
+        for word in line.split():
+            document.append(word)
+
+# loop for replacing the acronyms
+start_time = time.time()
+for word in range(len(document)):
+    for ac in range(len(acron)):
+        if document[word] == acron[ac][0]:
+            document[word] = acron[ac][1]
+
+print(document)
+
+# prints out the time to run the above for loop
+print(time.time() - start_time)

@@ -1,0 +1,34 @@
+def slangCheck(word,wb):
+    if len(wb) == 1:                                     #base case: wb is a single value list
+        if word == wb[0][0]:                             #if value is a match, return the meaning 
+            return wb[1]
+        else:                                            #else return the og word as is (not slang)
+            return word
+        
+    else:                                                #if list length > 1
+        p = int((len(wb))/2)                             #set p as halfway point
+        
+        if word[0:2] > wb[p][0][0:2]:                    #if the first two letters of word are further in alphabet...
+            slangCheck(word, wb[p:])                     #split array and run slangCheck again w back end
+            
+        elif word[0:2] < wb[p][0][0:2]:                  #if the first two letters of word are closer in alphabet...
+            slangCheck(word, wb[:p])                     #split array and run slangCheck again w front end
+            
+        elif word[0:2] == wb[p][0][0:2]:                 #if the first two letters are the same...
+            i = p                                        #starting from position [p]...
+            while word[0:2] == wb[p][0][0:2]:            #traverse the right end of the list while the first two letters remain equal
+                
+                if word == wb[i][0]:                     #if a match is found, return the meaning
+                    return wb[i][1]
+                else:                                    #else continue searching
+                    i = i + 1
+                    
+            i = p - 1                                    #starting from position [p-1]...
+            while word[0:2] == wb[p][0][0:2]:            #traverse the left end of the list while the first two letters remain equal
+                
+                if word == wb[i][0]:                     #if a match is found, return the meaning
+                    return wb[i][1]
+                else:
+                    i = i - 1                            #else continue searching
+                
+            return word                                  #else return the og word as is (not slang)
